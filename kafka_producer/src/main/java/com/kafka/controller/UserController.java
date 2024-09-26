@@ -61,7 +61,6 @@ public class UserController {
         ConsumerRecord<String, String> consumerRecord = requestReplyFuture.get(10, TimeUnit.SECONDS);
         String value = consumerRecord.value();
         log.info("Message received: {}", value);
-        User reply = mapper.readValue(value, User.class);
-        return reply;
+        return mapper.readValue(value, User.class);
     }
 }
