@@ -23,8 +23,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
     ports:
       - "9092:9092"
-    volumes:
-      - ./kafka_data:/var/lib/kafka/data
+#    volumes:
+#      - ./kafka_data:/var/lib/kafka/data
 
 #  # Tùy chọn: Kafdrop là một Kafka UI để quản lý Kafka từ giao diện web
 #  kafdrop:
