@@ -34,12 +34,11 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "request-topic")
     @SendTo("reply-topic")
-    public User receiveMsg(String message) throws JsonProcessingException {
+    public String receiveMsg(String message) throws JsonProcessingException {
         log.info("Received message: {}", message);
         User user = objectMapper.readValue(message, User.class);
-        user.setDept("IT");
-        user.setSalary(12L);
-        return user;
+        log.info("Received user: {}", user);
+        return String.format("CONFIRM RECEIVING MESSAGE WITH CONTENT FROM REQUEST TOPIC: %s", message) ;
     }
 
 }

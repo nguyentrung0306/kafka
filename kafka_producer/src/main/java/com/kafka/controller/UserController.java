@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @GetMapping(value = "reply-kafka")
-    public User replyKafka() throws ExecutionException, InterruptedException, TimeoutException, JsonProcessingException {
-        User user = new User("SENDING", "", 10L);
+    public String replyKafka() throws ExecutionException, InterruptedException, TimeoutException, JsonProcessingException {
+        User user = new User("SENDING TO REPLY TOPIC", "", 10L);
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>("request-topic", mapper.writeValueAsString(user));
 
         RequestReplyFuture<String, String, String> requestReplyFuture = replyingKafkaTemplate.sendAndReceive(producerRecord);
@@ -61,6 +61,6 @@ public class UserController {
         ConsumerRecord<String, String> consumerRecord = requestReplyFuture.get(10, TimeUnit.SECONDS);
         String value = consumerRecord.value();
         log.info("Message received: {}", value);
-        return mapper.readValue(value, User.class);
+        return value;
     }
 }
