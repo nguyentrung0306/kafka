@@ -21,7 +21,6 @@ public class UserController {
     @GetMapping("/publish/{name}")
     public String post(@PathVariable("name") final String name) {
 
-
         kafkaTemplate.send(TOPIC, new User(name, "Technology", 13000L));
 
         return "Published successfully";
